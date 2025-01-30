@@ -1,0 +1,32 @@
+[
+    {
+        "model": "gas.ProductionData",
+        "pk": 1,
+        "fields": {
+            "gas_well": 1,
+            "production_date": "2023-10-01",
+            "gas_volume": 100.0,
+            "liquid_volume": 50.0,
+            "pressure": 4300.0,
+            "temperature": 90.0,
+            "description": "Daily production data for Well SP-1.",
+            "created_at": "2023-10-01T12:00:00Z",
+            "updated_at": "2023-10-01T12:00:00Z"
+        }
+    },
+    {
+        "model": "gas.ProductionData",
+        "pk": 2,
+        "fields": {
+            "gas_well": 2,
+            "production_date": "2023-10-01",
+            "gas_volume": 95.0,
+            "liquid_volume": 45.0,
+            "pressure": 4200.0,
+            "temperature": 85.0,
+            "description": "Daily production data for Well SP-2.",
+            "created_at": "2023-10-01T12:00:00Z",
+            "updated_at": "2023-10-01T12:00:00Z"
+        }
+    }
+]
