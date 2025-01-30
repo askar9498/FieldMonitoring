@@ -20,7 +20,7 @@ def dashboard_callback(request, context):
     # ایجاد کد HTML برای نمودار
     chart_html = f"""
     <div style="margin-top: 20px;">
-        <h2>Gas Production Chart</h2>
+        <h4>Gas Production Chart 3</h4>
         <canvas id="productionChart" width="400" height="200"></canvas>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
