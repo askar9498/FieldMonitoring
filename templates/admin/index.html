@@ -21,5 +21,6 @@
 {% endblock %}
 
 {% block content %}
-    Start creating My own Dashboard
+    {{ block.super }}  <!-- نمایش محتوای پیش‌فرض داشبورد -->
+    {{ custom_chart }}  <!-- نمایش نمودار سفارشی -->
 {% endblock %}

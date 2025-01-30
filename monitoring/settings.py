@@ -151,6 +151,7 @@ UNFOLD = {
     "SITE_TITLE": "Gas",
     "SITE_HEADER": "Gas Wells",
     "SITE_URL": "admin/",
+    "DASHBOARD_CALLBACK": "gas.admin.dashboard_callback",
     "SHOW_LANGUAGES": True,
     # "SITE_LOGO": lambda request: static("logo.svg"),  # both modes, optimise for 32px height
     "SITE_LOGO": {

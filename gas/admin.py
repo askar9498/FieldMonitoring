@@ -10,6 +10,63 @@ from unfold.admin import ModelAdmin
 from django.utils.safestring import mark_safe
 from django.template.loader import render_to_string
 
+
+def dashboard_callback(request, context):
+    # دریافت داده‌های تولید برای نمودار
+    production_data = ProductionData.objects.all().order_by('production_date')
+    labels = [data.production_date.strftime('%Y-%m-%d') for data in production_data]
+    gas_volume = [data.gas_volume for data in production_data]
+
+    # ایجاد کد HTML برای نمودار
+    chart_html = f"""
+    <div style="margin-top: 20px;">
+        <h2>Gas Production Chart</h2>
+        <canvas id="productionChart" width="400" height="200"></canvas>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('productionChart').getContext('2d');
+        const chart = new Chart(ctx, {{
+            type: 'line',
+            data: {{
+                labels: {labels},
+                datasets: [{{
+                    label: 'Gas Volume (MMscf)',
+                    data: {gas_volume},
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    fill: false,
+                }}]
+            }},
+            options: {{
+                responsive: true,
+                scales: {{
+                    x: {{
+                        display: true,
+                        title: {{
+                            display: true,
+                            text: 'Date'
+                        }}
+                    }},
+                    y: {{
+                        display: true,
+                        title: {{
+                            display: true,
+                            text: 'Gas Volume (MMscf)'
+                        }}
+                    }}
+                }}
+            }}
+        }});
+    </script>
+    """
+
+    # اضافه کردن کد HTML به context
+    context.update({
+        "custom_chart": mark_safe(chart_html),  # استفاده از mark_safe برای نمایش HTML
+    })
+
+    return context
+
 @admin.register(GasWell)
 class GasWellAdmin(ModelAdmin):
     list_display = ('well_name', 'reservoir', 'status', 'operator_company', 'drilling_date')
