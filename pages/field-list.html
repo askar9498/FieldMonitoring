@@ -1,0 +1,50 @@
+<div class="container-fluid mt-2 d-flex flex-column h-100 justify-content-center">
+    <div class="text-primary fs-5">Field List</div>
+    <small class="mb-2">Total: 200 Fields</small>
+    <div id="fieldGrid" class="flex-grow-1 h-100"></div>
+</div>
+
+
+
+<script>
+    var columnDefs = [
+        { headerName: "Company", field: "company", sortable: true, filter: true },
+        { headerName: "Field Name", field: "fieldName", sortable: true, filter: true },
+        { headerName: "Field Type", field: "fieldType", sortable: true, filter: true },
+        { headerName: "Number of Wells", field: "wells", sortable: true, filter: true },
+        { headerName: "Field Size (km²)", field: "fieldSize", sortable: true, filter: true },
+        {
+            headerName: "Details",
+            cellRenderer: function (params) {
+                return `<button class="btn btn-sm btn-secondary" onclick="showDetails(${params.data.id})">Wells</button>`;
+            }
+        }
+    ];
+
+    var rowData = [];
+    for (let i = 1; i <= 200; i++) {
+        rowData.push({
+            id: i,
+            company: ["POGC", "IOOC", "NISOC", "PEDEC"][Math.floor(Math.random() * 4)],
+            fieldName: `Field ${i}`,
+            fieldType: ["Gas", "Oil", "Gas", "Oil", "Gas"][Math.floor(Math.random() * 5)],
+            wells: Math.floor(Math.random() * 50) + 1,
+            fieldSize: Math.floor(Math.random() * 1000) + 100
+        });
+    }
+
+    var gridOptions = {
+        columnDefs: columnDefs,
+        rowData: rowData,
+        paginationPageSize: 10,  // Number of rows per page
+        pagination: true,        // Enable pagination
+        domLayout: 'autoHeight'  // Adjust grid height automatically
+    };
+
+    agGrid.createGrid(document.getElementById('fieldGrid'), gridOptions);
+
+
+    function showDetails(id) {
+        alert("Show details for field with ID: " + id);
+    }
+</script>

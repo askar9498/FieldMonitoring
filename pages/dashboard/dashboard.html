@@ -1,0 +1,106 @@
+<div class="d-flex flex-column h-100 justify-content-center py-2 px-3">
+    <div class="d-flex flex-row gap-2 align-items-center mb-3">
+        <div class="flex-fill border rounded-2 shadow shadow-sm d-flex flex-column justify-content-center align-items-center "
+            style="height: 300px;;">
+            <p class="fs-5 text-primary">Statisitics data goes here!</p>
+            <small class="text-secondary">such as number of fiels, number of wells, and so on</small>
+        </div>
+        <div class="flex-fill border rounded-2 shadow shadow-sm d-flex flex-column justify-content-center align-items-center "
+            style="height: 300px;;">
+            <p class="fs-5 text-info">Production data goes here!</p>
+            <small class="text-secondary">such as oil and gas flow rate</small>
+        </div>
+        <div class="flex-fill border rounded-2 shadow shadow-sm d-flex flex-column justify-content-center align-items-center "
+            style="height: 300px;;">
+            <p class="fs-5 text-warning">Extra info goes here!</p>
+            <small class="text-secondary">to be decided!</small>
+        </div>
+
+    </div>
+
+    <div class="d-flex flex-row gap-4 align-items-center mt-2 mb-3">
+        <div class="flex-fill border rounded-2 shadow shadow-sm d-flex flex-column p-2" style="height: 400px;;">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane"
+                        type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Oil</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane"
+                        type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Gas</button>
+                </li>
+
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
+                    tabindex="0">
+                    <div class="table-responsive my-2">
+                        <table class="table align-middle table-hover text-center">
+                            <thead class="">
+                                <tr class="text-primary">
+                                    <th scope="col" class="text-secondary fs-6 fw-normal">Field Name</th>
+                                    <th scope="col" class="text-secondary fs-6 fw-normal">Number of Wells</th>
+                                    <th scope="col" class="text-secondary fs-6 fw-normal">Today's Production</th>
+                                    <th scope="col" class="text-secondary fs-6 fw-normal">Change</th>
+                                    <th scope="col" class="text-secondary fs-6 fw-normal"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Field A</td>
+                                    <td>10</td>
+                                    <td>500 bbl/day</td>
+                                    <td><span
+                                            class="px-2 text-success bg-success bg-opacity-10 border border-success border-opacity-10 rounded-2 fw-lighter"><i
+                                                class="fa-solid fa-arrow-up fa-xs me-2"></i>+5%</span>
+                                    </td>
+                                    <td><button class="btn btn-secondary btn-sm"><i
+                                                class="fa-solid fa-arrow-right px-2 text-secondary"></i></button></td>
+                                </tr>
+                                <tr>
+                                    <td>Field B</td>
+                                    <td>8</td>
+                                    <td>350 bbl/day</td>
+                                    <td><span
+                                            class="px-2 text-danger bg-danger bg-opacity-10 border border-danger border-opacity-10 rounded-2 fw-lighter"><i
+                                                class="fa-solid fa-arrow-down fa-xs me-2"></i>-3%</span>
+                                    </td>
+                                    <td><button class="btn btn-secondary btn-sm"><i
+                                                class="fa-solid fa-arrow-right px-2 text-secondary"></i></button></td>
+                                </tr>
+                                <tr>
+                                    <td>Field C</td>
+                                    <td>12</td>
+                                    <td>800 bbl/day</td>
+                                    <td><span
+                                            class="px-2 text-success bg-success bg-opacity-10 border border-success border-opacity-10 rounded-2 fw-lighter"><i
+                                                class="fa-solid fa-arrow-up fa-xs me-2"></i>+2%</span>
+                                    </td>
+                                    <td><button class="btn btn-secondary btn-sm"><i
+                                                class="fa-solid fa-arrow-right px-2 text-secondary"></i></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="d-flex justify-content-center align-items-center">
+                        <div class="btn btn-sm btn-secondary">Show more...</div>
+                    </div>
+
+
+
+
+                </div>
+                <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab"
+                    tabindex="0">...
+                </div>
+
+            </div>
+        </div>
+        <div class="flex-fill border rounded-2 shadow shadow-sm d-flex flex-column justify-content-center align-items-center "
+            style="height: 400px;;">
+            <div hx-get="pages/dashboard/donut-chart.html" hx-swap="innerHTML" hx-trigger="load"></div>
+        </div>
+    </div>
+
+</div>

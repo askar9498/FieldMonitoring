@@ -1,0 +1,72 @@
+<div class="chart-container" id="gas-production-chart">
+    <div id="donut-chart" style="height: 400px; width:400px;"></div>
+</div>
+
+<script>
+    // Function to render the donut chart
+    function renderDonutChart() {
+        var chartDom = document.getElementById('donut-chart');
+        var myChart = echarts.init(chartDom);
+
+        var option = {
+            tooltip: {
+                trigger: 'item',
+                formatter: function (params) {
+                    return `${params.name}: ${params.value} (${params.percent}%)`;
+                }
+            },
+            legend: {
+                orient: 'vertical',  // Vertical layout for legend
+                left: 'left',        // Position it on the left side
+                data: ['POGC', 'PEDEC', 'NISOC', 'IOOC']  // Names of the sectors
+            },
+            series: [
+                {
+                    name: 'Gas Production',
+                    type: 'pie',
+                    radius: ['40%', '70%'],  // Donut chart
+                    avoidLabelOverlap: false,
+                    itemStyle: {
+                        borderRadius: 10,
+                        borderColor: '#fff',
+                        borderWidth: 2
+                    },
+                    label: {
+                        show: true,
+                        position: 'center',
+                        fontSize: '16',
+                        fontWeight: '600'
+                    },
+                    emphasis: {
+                        label: {
+                            show: true,
+                            fontSize: '20',
+                            fontWeight: 'bold'
+                        }
+                    },
+                    data: [
+                        { value: 70, name: 'POGC' },
+                        { value: 15, name: 'PEDEC' },
+                        { value: 3, name: 'NISOC' },
+                        { value: 5, name: 'IOOC' },
+                        { value: 7, name: 'PEDEC' }
+                    ]
+                }
+            ]
+        };
+
+        myChart.setOption(option);
+    }
+
+    // Initial rendering of the chart
+    document.addEventListener('DOMContentLoaded', function () {
+        renderDonutChart();
+    });
+
+    // Re-render the chart after HTMX swaps the content
+    document.addEventListener('htmx:afterSwap', function (event) {
+        if (event.target.id === 'gas-production-chart' || event.target.querySelector('#gas-production-chart')) {
+            renderDonutChart();  // Re-render the donut chart after the content is swapped
+        }
+    });
+</script>
