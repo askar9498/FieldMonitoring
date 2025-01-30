@@ -21,6 +21,17 @@
 {% endblock %}
 
 {% block content %}
+
     {{ block.super }}  <!-- نمایش محتوای پیش‌فرض داشبورد -->
-    {{ custom_chart }}  <!-- نمایش نمودار سفارشی -->
+    <div class="row">
+        <div class="col-6">
+            {{ custom_table }}  <!-- نمایش چارت Pie -->
+
+        </div>
+        <div class="col-4">
+            {{ custom_chart }}  <!-- نمایش جدول داده‌ها -->
+
+        </div>
+    </div>
+    
 {% endblock %}

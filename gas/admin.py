@@ -4,7 +4,7 @@ from unfold.admin import ModelAdmin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.admin import GroupAdmin as BaseGroupAdmin
 from django.contrib.auth.models import User, Group
-
+from django.db.models import Count
 from unfold.forms import AdminPasswordChangeForm, UserChangeForm, UserCreationForm
 from unfold.admin import ModelAdmin
 from django.utils.safestring import mark_safe
@@ -12,61 +12,101 @@ from django.template.loader import render_to_string
 
 
 def dashboard_callback(request, context):
-    # دریافت داده‌های تولید برای نمودار
-    production_data = ProductionData.objects.all().order_by('production_date')
-    labels = [data.production_date.strftime('%Y-%m-%d') for data in production_data]
-    gas_volume = [data.gas_volume for data in production_data]
-
-    # ایجاد کد HTML برای نمودار
+    # دریافت داده‌های وضعیت چاه‌ها
+    status_data = GasWell.objects.values('status').annotate(count=Count('status'))
+    labels = [item['status'] for item in status_data]
+    counts = [item['count'] for item in status_data]
+    
+    
+    # ایجاد کد HTML برای چارت Pie
     chart_html = f"""
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <div style="margin-top: 20px;">
-        <h4>Gas Production Chart 3</h4>
-        <canvas id="productionChart" width="400" height="200"></canvas>
+        <h4>Gas Well Status Distribution</h4>
+        <canvas id="statusPieChart" width="200" height="100"></canvas>
     </div>
+   
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script>
-        const ctx = document.getElementById('productionChart').getContext('2d');
+        const ctx = document.getElementById('statusPieChart').getContext('2d');
         const chart = new Chart(ctx, {{
-            type: 'line',
+            type: 'pie',
             data: {{
                 labels: {labels},
                 datasets: [{{
-                    label: 'Gas Volume (MMscf)',
-                    data: {gas_volume},
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    fill: false,
+                    label: 'Number of Wells',
+                    data: {counts},
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.6)',
+                        'rgba(54, 162, 235, 0.6)',
+                        'rgba(255, 206, 86, 0.6)',
+                        'rgba(75, 192, 192, 0.6)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                    ],
+                    borderWidth: 1
                 }}]
             }},
             options: {{
                 responsive: true,
-                scales: {{
-                    x: {{
-                        display: true,
-                        title: {{
-                            display: true,
-                            text: 'Date'
-                        }}
+                plugins: {{
+                    legend: {{
+                        position: 'top',
                     }},
-                    y: {{
+                    title: {{
                         display: true,
-                        title: {{
-                            display: true,
-                            text: 'Gas Volume (MMscf)'
-                        }}
+                        text: 'Gas Well Status Distribution'
                     }}
                 }}
             }}
         }});
+        
     </script>
+    """
+
+    # ایجاد جدول داده‌ها
+    wells = GasWell.objects.all()
+    table_html = """
+    <div style="margin-top: 40px;">
+        <h4>Gas Well Data</h4>
+        <table class='table table-striped' border="1" style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th>Well Name</th>
+                    <th>Status</th>
+                    <th>Operator Company</th>
+                    <th>Drilling Date</th>
+                </tr>
+            </thead>
+            <tbody>
+    """
+    for well in wells:
+        table_html += f"""
+        <tr>
+            <td>{well.well_name}</td>
+            <td>{well.status}</td>
+            <td>{well.operator_company}</td>
+            <td>{well.drilling_date}</td>
+        </tr>
+        """
+    table_html += """
+            </tbody>
+        </table>
+    </div>
     """
 
     # اضافه کردن کد HTML به context
     context.update({
-        "custom_chart": mark_safe(chart_html),  # استفاده از mark_safe برای نمایش HTML
+        "custom_chart": mark_safe(chart_html),  # چارت Pie
+        "custom_table": mark_safe(table_html),  # جدول داده‌ها
     })
 
     return context
-
 @admin.register(GasWell)
 class GasWellAdmin(ModelAdmin):
     list_display = ('well_name', 'reservoir', 'status', 'operator_company', 'drilling_date')
