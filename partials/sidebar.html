@@ -1,4 +1,4 @@
-<aside id="sidebar">
+<aside id="sidebar" class="bg-black">
     <div class="d-flex">
         <div class="sidebar-logo text-center ">
         </div>
@@ -89,13 +89,19 @@
         </a>
     </div>
 </aside>
-
 <script>
-    document.addEventListener("htmx:afterSwap", function (event) {
-        const hamBurger = document.querySelector(".toggle-btn");
+    window.onload = function() {
+        const dropdowns = document.querySelectorAll('.nav-item.dropdown');
+        if (dropdowns.length > 0) {
+            dropdowns.forEach(function(dropdown) {
+                dropdown.addEventListener('click', function() {
+                    const menu = this.querySelector('.dropdown-menu');
+                    if (menu) {
+                        menu.classList.toggle('show');
+                    }
+                });
+            });
+        }
+}
 
-        hamBurger.addEventListener("click", function () {
-            document.querySelector("#sidebar").classList.toggle("expand");
-        });
-    });
 </script>

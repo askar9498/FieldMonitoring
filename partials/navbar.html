@@ -9,15 +9,15 @@
 
                 <li class="nav-item">
                     <a class="nav-link" role="button" hx-get="pages/dashboard/dashboard.html" hx-swap="innerHTML"
-                        hx-target="#content">Dashboard</a>
+                       hx-target="#content">Dashboard</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" role="button" hx-get="pages/map.html" hx-swap="innerHTML"
-                        hx-target="#content">Map</a>
+                       hx-target="#content">Map</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
+                       aria-expanded="false">
                         Modules
                     </a>
                     <ul class="dropdown-menu">
@@ -32,11 +32,53 @@
                 <li class="nav-item">
                     <a class="nav-link disabled" aria-disabled="true">Disabled</a>
                 </li>
-            </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-info" type="submit">Search</button>
-            </form>
 
+            </ul>
+            <!-- Avatar Dropdown -->
+            <!-- Avatar Custom Dropdown -->
+            <ul class="navbar-nav">
+                <!-- Avatar -->
+                <li class="nav-item dropdown">
+                    <a data-mdb-dropdown-init class="nav-link dropdown-toggle d-flex align-items-center" href="#"
+                       id="navbarDropdownMenuLink"
+                       role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img (31).webp" class="rounded-circle"
+                             height="22" alt="Avatar" loading="lazy"/>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink"
+                        style="   top: 50px;    right: 0px;">
+                        <li>
+                            <a class="dropdown-item" href="#">My profile</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">Settings</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">Logout</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
         </div>
+    </div>
 </nav>
+
+<script>
+    window.onload = function () {
+        const dropdowns = document.querySelectorAll('.nav-item.dropdown');
+
+        if (dropdowns.length === 0) {
+            console.log("No dropdowns found!");
+        } else {
+            dropdowns.forEach(function (dropdown, index) {
+                // افزودن رویداد کلیک به هر منو
+                dropdown.addEventListener('click', function () {
+                    const menu = this.querySelector('.dropdown-menu');
+                    if (menu) {
+                        menu.classList.toggle('show');
+                    }
+                });
+            });
+        }
+    }
+</script>
