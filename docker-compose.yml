@@ -1,6 +1,6 @@
-version: "3.9"
+version: "3.8"
 
-services:  
+services:
   web:
     container_name: web
     platform: linux/amd64
@@ -10,8 +10,4 @@ services:
     volumes:
       - .:/app
     ports:
-      - 8000:8000
-   
-      
-  
-  
+      - "8000:8000"

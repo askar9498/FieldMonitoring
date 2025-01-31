@@ -1,13 +1,14 @@
 from django.db import models
-
+from django.utils.translation import gettext_lazy as _
 # Create your models here.
-from django.db import models
 
 class Country(models.Model):
     name = models.CharField(max_length=100, unique=True)
     code = models.CharField(max_length=3, unique=True)  # ISO 3166-1 alpha-3 country code
 
     class Meta:
+        verbose_name = _("Country")
+        verbose_name_plural = _("Countries")
         db_table = 'Country'
 
     def __str__(self):
@@ -18,6 +19,8 @@ class Province(models.Model):
     country = models.ForeignKey(Country, on_delete=models.CASCADE, related_name="provinces")
 
     class Meta:
+        verbose_name = _("Province")
+        verbose_name_plural = _("Provinces")
         unique_together = ('name', 'country')  # Ensures province names are unique within a country
         db_table = 'Province'
 
@@ -29,6 +32,8 @@ class City(models.Model):
     province = models.ForeignKey(Province, on_delete=models.CASCADE, related_name="cities")
 
     class Meta:
+        verbose_name = _("City")
+        verbose_name_plural = _("Cities")
         unique_together = ('name', 'province')  # Ensures city names are unique within a province
         db_table = 'City'
 
@@ -40,4 +45,6 @@ class Company(models.Model):
     parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.SET_NULL, related_name='subsidiaries')
 
     def __str__(self):
+        verbose_name = _("Company")
+        verbose_name_plural = _("Companies")
         return self.name
