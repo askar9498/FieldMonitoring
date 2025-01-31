@@ -5,7 +5,7 @@
     function loadTubularGrid() {
         const gridOptions = {
             columnDefs: [
-                { headerName: "Type", field: "type", sortable: true, filter: true },
+                { headerName: "Type", field: "type", sortable: true, filter: true, rowGroup: true },
                 { headerName: "TVD Start (m)", field: "tvd_start", sortable: true, filter: true },
                 { headerName: "TVD End (m)", field: "tvd_end", sortable: true, filter: true },
                 { headerName: "MD Start (m)", field: "md_start", sortable: true, filter: true },
@@ -19,6 +19,11 @@
                 resizable: true,
                 filter: "agTextColumnFilter",
             },
+            autoGroupColumnDef: {
+                minWidth: 200,
+            },
+            rowGroupPanelShow: "always",
+            groupDefaultExpanded: 1,
             rowData: [
                 { tvd_start: 0, tvd_end: 1000, md_start: 0, md_end: 1050, diameter: 20, grade: "J55", weight: 94.0, type: "Casing", connection: "BTC" },
                 { tvd_start: 1000, tvd_end: 2000, md_start: 1050, md_end: 2100, diameter: 13.375, grade: "K55", weight: 68.0, type: "Casing", connection: "STC" },
