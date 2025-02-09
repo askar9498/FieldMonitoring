@@ -21,8 +21,10 @@ from django.urls import include, path
 urlpatterns = (
     [
         path("i18n/", include("django.conf.urls.i18n")),
+        path("", include('well.urls')),
     ]
     + i18n_patterns(
+        # path("tubular", include('well.tubular')),
         path("admin/", admin.site.urls),
     )
 )

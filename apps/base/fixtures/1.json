@@ -1,0 +1,49 @@
+[
+    {
+        "model": "base.country",
+        "pk": 1,
+        "fields": {
+            "name": "Iran",
+            "code": "IRN"
+        }
+    },
+    {
+        "model": "base.province",
+        "pk": 2,
+        "fields": {
+            "name": "Bushehr",
+            "country": 1
+        }
+    },
+    {
+        "model": "base.city",
+        "pk": 3,
+        "fields": {
+            "name": "Asaluyeh",
+            "province": 2
+        }
+    },
+    {
+        "model": "base.city",
+        "pk": 4,
+        "fields": {
+            "name": "Kangan",
+            "province": 2
+        }
+    },
+    {
+        "model": "base.city",
+        "pk": 5,
+        "fields": {
+            "name": "Khark Island",
+            "province": 2
+        }
+    },
+    {
+        "model": "base.company",
+        "pk": 3,
+        "fields": {
+            "name": "Pars Oil & Gas Company"
+        }
+    }
+]

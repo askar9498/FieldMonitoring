@@ -1,0 +1,233 @@
+<div class="container-fluid my-3 mx-2">
+    <!-- First Row: Oil and Gas Production -->
+    <div class="row">
+        <!-- Card for Daily Oil Production -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Daily Oil Production</h5>
+                </div>
+                <div class="card-body">
+                    <div id="daily-oil-production" style="width: 100%; height: 400px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card for Daily Gas Production -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Daily Gas Production</h5>
+                </div>
+                <div class="card-body">
+                    <div id="daily-gas-production" style="width: 100%; height: 400px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Second Row: Pressure and Temperature Trends -->
+    <div class="row">
+        <!-- Card for Pressure Trend -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Historical Trend of Oil Well Pressure</h5>
+                </div>
+                <div class="card-body">
+                    <div id="pressure-trend" style="width: 100%; height: 400px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card for Temperature Trend -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Temperature Changes Over Time</h5>
+                </div>
+                <div class="card-body">
+                    <div id="temperature-trend" style="width: 100%; height: 400px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    // Initialize the charts with the Shine.js theme
+    var shineTheme = echarts.init(document.getElementById('pressure-trend'), 'shine');
+    var pressureChart = echarts.init(document.getElementById('pressure-trend'), 'shine');
+    var tempChart = echarts.init(document.getElementById('temperature-trend'), 'shine');
+    var oilProductionChart = echarts.init(document.getElementById('daily-oil-production'), 'shine');
+    var gasProductionChart = echarts.init(document.getElementById('daily-gas-production'), 'shine');
+
+    // Historical trend of oil well pressure vs time
+    var pressureData = [];
+    for (let i = 0; i < 100; i++) {
+        let date = new Date(2015 + Math.floor(i / 12), i % 12, 1); // Generate data for 10 years
+        pressureData.push([date, 2500 + Math.sin(i / 10) * 400 + Math.random() * 300]);
+    }
+    var pressureOption = {
+        title: { text: 'Historical Trend of Oil Well Pressure (10 years)' },
+        tooltip: { trigger: 'axis' },
+        xAxis: {
+            type: 'time',
+            axisLabel: {
+                formatter: '{yyyy}-{MM}-{dd}',
+                rotate: 45
+            }
+        },
+        yAxis: {
+            type: 'value',
+            name: 'Pressure (psi)',
+            axisLabel: { formatter: '{value} psi' }
+        },
+        series: [{
+            data: pressureData,
+            type: 'line',
+            smooth: true,
+            name: 'Pressure',
+            itemStyle: { color: '#ff6347' }, // Tomato red color
+            markPoint: {
+                data: [
+                    { type: 'max', name: 'Max Pressure', valueIndex: 1, itemStyle: { color: '#ff6347' } },
+                    { type: 'min', name: 'Min Pressure', valueIndex: 1, itemStyle: { color: '#ff6347' } }
+                ],
+                label: {
+                    formatter: function (params) {
+                        return Math.round(params.value); // Round the values
+                    }
+                }
+            }
+        }]
+    };
+    pressureChart.setOption(pressureOption);
+
+    // Temperature trend
+    var tempData = [];
+    for (let i = 0; i < 100; i++) {
+        let date = new Date(2015 + Math.floor(i / 12), i % 12, 1); // Generate data for 10 years
+        tempData.push([date, 50 + Math.sin(i / 8) * 10 + Math.random() * 5]);
+    }
+    var tempOption = {
+        title: { text: 'Temperature Changes Over Time' },
+        tooltip: { trigger: 'axis' },
+        xAxis: {
+            type: 'time',
+            axisLabel: {
+                formatter: '{yyyy}-{MM}-{dd}',
+                rotate: 45
+            }
+        },
+        yAxis: {
+            type: 'value',
+            name: 'Temperature (°C)',
+            axisLabel: { formatter: '{value} °C' }
+        },
+        series: [{
+            data: tempData,
+            type: 'line',
+            smooth: true,
+            name: 'Temperature',
+            itemStyle: { color: '#32cd32' }, // Lime green color
+            markPoint: {
+                data: [
+                    { type: 'max', name: 'Max Temperature', valueIndex: 1, itemStyle: { color: '#32cd32' } },
+                    { type: 'min', name: 'Min Temperature', valueIndex: 1, itemStyle: { color: '#32cd32' } }
+                ],
+                label: {
+                    formatter: function (params) {
+                        return Math.round(params.value); // Round the values
+                    }
+                }
+            }
+        }]
+    };
+    tempChart.setOption(tempOption);
+
+    // Daily oil production
+    var oilProductionData = [];
+    for (let i = 0; i < 100; i++) {
+        let date = new Date(2024, 0, i + 1); // Generate data for 100 days in 2024
+        oilProductionData.push([date, 1000 + Math.sin(i / 5) * 200 + Math.random() * 150]);
+    }
+    var oilProductionOption = {
+        title: { text: 'Daily Oil Production' },
+        tooltip: { trigger: 'axis' },
+        xAxis: {
+            type: 'time',
+            axisLabel: {
+                formatter: '{yyyy}-{MM}-{dd}',
+                rotate: 45
+            }
+        },
+        yAxis: {
+            type: 'value',
+            name: 'Oil Production (bbl/day)',
+            axisLabel: { formatter: '{value} bbl/day' }
+        },
+        series: [{
+            data: oilProductionData,
+            type: 'line',
+            smooth: true,
+            name: 'Oil Production',
+            itemStyle: { color: '#1e90ff' }, // Dodger blue color
+            markPoint: {
+                data: [
+                    { type: 'max', name: 'Max Production', valueIndex: 1, itemStyle: { color: '#1e90ff' } },
+                    { type: 'min', name: 'Min Production', valueIndex: 1, itemStyle: { color: '#1e90ff' } }
+                ],
+                label: {
+                    formatter: function (params) {
+                        return Math.round(params.value); // Round the values
+                    }
+                }
+            }
+        }]
+    };
+    oilProductionChart.setOption(oilProductionOption);
+
+    // Daily gas production
+    var gasProductionData = [];
+    for (let i = 0; i < 100; i++) {
+        let date = new Date(2024, 0, i + 1); // Generate data for 100 days in 2024
+        gasProductionData.push([date, 500 + Math.sin(i / 6) * 100 + Math.random() * 50]);
+    }
+    var gasProductionOption = {
+        title: { text: 'Daily Gas Production' },
+        tooltip: { trigger: 'axis' },
+        xAxis: {
+            type: 'time',
+            axisLabel: {
+                formatter: '{yyyy}-{MM}-{dd}',
+                rotate: 45
+            }
+        },
+        yAxis: {
+            type: 'value',
+            name: 'Gas Production (MMcf/day)',
+            axisLabel: { formatter: '{value} MMcf/day' }
+        },
+        series: [{
+            data: gasProductionData,
+            type: 'line',
+            smooth: true,
+            name: 'Gas Production',
+            itemStyle: { color: '#ff4500' }, // OrangeRed color
+            markPoint: {
+                data: [
+                    { type: 'max', name: 'Max Gas Production', valueIndex: 1, itemStyle: { color: '#ff4500' } },
+                    { type: 'min', name: 'Min Gas Production', valueIndex: 1, itemStyle: { color: '#ff4500' } }
+                ],
+                label: {
+                    formatter: function (params) {
+                        return Math.round(params.value); // Round the values
+                    }
+                }
+            }
+        }]
+    };
+    gasProductionChart.setOption(gasProductionOption);
+</script>

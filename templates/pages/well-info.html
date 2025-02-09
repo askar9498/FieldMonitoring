@@ -1,0 +1,109 @@
+<div class="container-fluid mt-4">
+    <div class="row">
+        <!-- Well Overview Card -->
+        <div class="col-md-6 mb-4">
+            <div class="card  shadow-lg border-1">
+                <div class="card-header bg-gradient-primary text-black">
+                    <h5 class="mb-0">Well Overview</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-6"><strong>Well Name:</strong> <span class="text-primary">Alpha-1</span></div>
+                        <div class="col-md-6"><strong>Field:</strong> North Sea Field</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6"><strong>Country:</strong> United Kingdom</div>
+                        <div class="col-md-6"><strong>Operator:</strong> XYZ Energy Co.</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6"><strong>Drilled Date:</strong> June 12, 2015</div>
+                        <div class="col-md-6"><strong>Completion Date:</strong> January 20, 2016</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6"><strong>Start of Production:</strong> July 15, 2016</div>
+                        <div class="col-md-6"><strong>Well Depth:</strong> 3,500 meters</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6"><strong>Fluid Type:</strong> Oil</div>
+                        <div class="col-md-6"><strong>Well Type:</strong> Offshore</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6"><strong>Last Test Date:</strong> January 5, 2024</div>
+                        <div class="col-md-6"><strong>H₂S Presence:</strong>
+                            <span class="badge bg-danger">Yes</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Production Data Card -->
+        <div class="col-md-6 mb-4">
+            <div class="card  shadow-lg border-1">
+                <div class="card-header bg-gradient-success text-black">
+                    <h5 class="mb-0">Production Data</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-6"><strong>Current Production Rate:</strong> <span class="text-success">5,000 barrels/day</span></div>
+                        <div class="col-md-6"><strong>Cumulative Production:</strong> 1.2 million barrels</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6"><strong>API Gravity:</strong> 35°</div>
+                        <div class="col-md-6"><strong>Reservoir Pressure:</strong> 4,500 psi</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6"><strong>Gas-Oil Ratio:</strong> 800 scf/stb</div>
+                        <div class="col-md-6"><strong>Water Cut:</strong> 15%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Location Map Card -->
+    <div class="card mb-4 shadow-lg border-0">
+        <div class="card-header bg-gradient-info text-black">
+            <h5 class="mb-0">Well Location</h5>
+        </div>
+        <div class="card-body p-0">
+            <div id="kt_modal_select_location_map"
+             class="w-auto mx-10 mb-10 rounded leaflet-container leaflet-touch leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom"
+             style="height:450px"></div>
+            <div class="row mt-3 p-3">
+                <div class="col-md-6"><strong>Latitude:</strong> 58.1234° N</div>
+                <div class="col-md-6"><strong>Longitude:</strong> 1.2345° E</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ایجاد نقشه و مرکز آن روی ایران
+    var map = L.map('kt_modal_select_location_map').setView([27.4279, 52.6880], 10);
+
+    // اضافه کردن لایه OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // تعریف محدوده‌ای برای هایلایت (یک چندضلعی)
+    var areaCoords = [
+        [27.4800, 52.6100],  // نقطه شمال غربی
+        [27.5000, 52.7500],  // نقطه شمال شرقی
+        [27.3500, 52.7800],  // نقطه جنوب شرقی
+        [27.3000, 52.6200]   // نقطه جنوب غربی
+    ];
+
+
+    // اضافه کردن محدوده به نقشه
+    var polygon = L.polygon(areaCoords, {
+        color: "red",      // رنگ خط مرزی
+        fillColor: "orange", // رنگ داخل محدوده
+        fillOpacity: 0.5   // میزان شفافیت
+    }).addTo(map);
+
+    // نمایش پیام هنگام حرکت موس روی محدوده
+    polygon.bindTooltip("Area1", {permanent: false, direction: "top"});
+
+</script>

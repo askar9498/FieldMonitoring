@@ -1,0 +1,93 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-lg-0">
+                <button class="toggle-btn btn btn-primary rounded-2 me-3" type="button">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <span class="navbar-brand mb-0 h1">Well Management System</span>
+
+                <li class="nav-item">
+                    <a class="nav-link" role="button" hx-get="pages/dashboard/dashboard.html" hx-swap="innerHTML"
+                       hx-target="#content">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" role="button" hx-get="pages/map.html" hx-swap="innerHTML"
+                       hx-target="#content">Map</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Modules
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Well Integrity Management</a></li>
+                        <li><a class="dropdown-item" href="#">Well Test</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Active Rigs</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                </li>
+
+            </ul>
+            <!-- Avatar Dropdown -->
+            <!-- Avatar Custom Dropdown -->
+            <ul class="navbar-nav">
+                <!-- Avatar -->
+                <li class="nav-item dropdown">
+                    <a data-mdb-dropdown-init class="nav-link dropdown-toggle d-flex align-items-center" href="#"
+                       id="navbarDropdownMenuLink"
+                       role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img (31).webp" class="rounded-circle"
+                             height="22" alt="Avatar" loading="lazy"/>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink"
+                        style="   top: 50px;    right: 0px;">
+                        <li>
+                            <a class="dropdown-item" href="#">My profile</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">Settings</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">Logout</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<script>
+    window.onload = function () {
+        const dropdowns = document.querySelectorAll('.nav-item.dropdown');
+
+        if (dropdowns.length === 0) {
+            console.log("No dropdowns found!");
+        } else {
+            dropdowns.forEach(function (dropdown, index) {
+                // افزودن رویداد کلیک به هر منو
+                dropdown.addEventListener('click', function () {
+                    const menu = this.querySelector('.dropdown-menu');
+                    if (menu) {
+                        menu.classList.toggle('show');
+                    }
+                });
+            });
+        }
+    }
+    document.addEventListener("DOMContentLoaded", function () {
+        const toggleButton = document.querySelector(".toggle-btn");
+        const sidebar = document.getElementById("sidebar");
+        if (toggleButton && sidebar) {
+            toggleButton.addEventListener("click", function () {
+                sidebar.classList.toggle("collapsed");  // کلاس `collapsed` را اضافه یا حذف می‌کند
+            });
+        }
+    });
+</script>

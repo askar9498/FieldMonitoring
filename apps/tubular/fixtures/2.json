@@ -1,0 +1,58 @@
+[
+    {
+        "model": "tubular.tubularcatalogue",
+        "pk": 3,
+        "fields": {
+            "outer_diameter": 10.75,
+            "inner_diameter": 9.5,
+            "weight": 45.5,
+            "grade": "L80",
+            "tube_yield": 80000,
+            "internal_drift": 9.25,
+            "burst_pressure": 6000,
+            "collapse_pressure": 4000
+        }
+    },
+    {
+        "model": "tubular.tubularcatalogue",
+        "pk": 4,
+        "fields": {
+            "outer_diameter": 14.0,
+            "inner_diameter": 12.5,
+            "weight": 65.0,
+            "grade": "Q125",
+            "tube_yield": 125000,
+            "internal_drift": 12.25,
+            "burst_pressure": 7500,
+            "collapse_pressure": 5000
+        }
+    },
+    {
+        "model": "tubular.welltube",
+        "pk": 3,
+        "fields": {
+            "well": 3,
+            "tube_catalogue": 3,
+            "name": "CASING",
+            "hole_inner_diameter": 14.75,
+            "tvd_top": 0.0,
+            "md_top": 0.0,
+            "tvd_bottom": 3500.0,
+            "md_bottom": 3550.0
+        }
+    },
+    {
+        "model": "tubular.welltube",
+        "pk": 4,
+        "fields": {
+            "well": 4,
+            "tube_catalogue": 4,
+            "name": "LINER",
+            "hole_inner_diameter": 18.0,
+            "tvd_top": 1500.0,
+            "md_top": 1550.0,
+            "tvd_bottom": 6000.0,
+            "md_bottom": 6100.0
+        }
+    }
+]

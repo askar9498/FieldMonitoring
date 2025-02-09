@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Well Management System</title>
+    <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fastbootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome/css/solid.css' %}">
+    <script src="{% static 'js/htmx.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/ag-theme-material.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/leaflet.css' %}">
+
+</head>
+
+<body>
+<div class="d-flex vh-100">
+    {% include "partials/sidebar.html" %}
+
+    <div class="vh-100  main">
+        {% include "partials/navbar.html" %}
+        <div class="d-flex flex-column h-100 overflow-auto" id="content">
+        </div>
+    </div>
+</div>
+
+
+<script src="{% static 'js/jquery-3.7.0.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/script.js' %}"></script>
+<script src="{% static 'js/ag-grid-enterprise.min.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/4.3.0/apexcharts.min.js"
+        integrity="sha512-QgLS4OmTNBq9TujITTSh0jrZxZ55CFjs4wjK8NXsBoZb04UYl8wWQJNaS8jRiLq6/c60bEfOj3cPsxadHICNfw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="{% static 'echarts/echarts.min.js' %}"></script>
+<script src="{% static 'echarts/shine.js' %}"></script>
+<script src="{% static 'js/leaflet.js' %}"></script>
+<script src="{% static 'js/app.js' %}"></script>
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+<aside id="sidebar" class="bg-black">
+    <div class="d-flex">
+        <div class="sidebar-logo text-center ">
+        </div>
+    </div>
+    <ul class="sidebar-nav">
+        <li class="sidebar-item">
+            <a class="sidebar-link" hx-get="{% url 'dashboard' %}" hx-swap="innerHTML" hx-target="#content" hx-trigger="load, click"
+                role="button">
+                <i class="lni lni-user"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li class="sidebar-item">
+            <a class="sidebar-link" hx-get="{% url 'field_list' %}" hx-target="#content">
+                <i class="lni lni-agenda"></i>
+                <span>Fields</span>
+            </a>
+        </li>
+
+        <li class="sidebar-item">
+            <a class="sidebar-link" hx-get="{% url 'well_detail' %}" hx-swap="innerHTML" hx-target="#content"
+                role="button">
+                <i class="lni lni-agenda"></i>
+                <span>Well Detail</span>
+            </a>
+        </li>
+        
+    </ul>
+    <div class="sidebar-footer">
+        <a href="#" class="sidebar-link">
+            <i class="lni lni-exit"></i>
+            <span>Logout</span>
+        </a>
+    </div>
+</aside>
+<script>
+    window.onload = function() {
+        const dropdowns = document.querySelectorAll('.nav-item.dropdown');
+        if (dropdowns.length > 0) {
+            dropdowns.forEach(function(dropdown) {
+                dropdown.addEventListener('click', function() {
+                    const menu = this.querySelector('.dropdown-menu');
+                    if (menu) {
+                        menu.classList.toggle('show');
+                    }
+                });
+            });
+        }
+}
+
+
+
+</script>

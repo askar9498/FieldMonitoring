@@ -1,0 +1,56 @@
+[
+    {
+        "model": "well.field",
+        "pk": 3,
+        "fields": {
+            "name": "South Pars Phase 12",
+            "area": 5000,
+            "country": 1,
+            "company": 3,
+            "field_type": "gas"
+        }
+    },
+    {
+        "model": "well.field",
+        "pk": 4,
+        "fields": {
+            "name": "South Pars Phase 19",
+            "area": 6000,
+            "country": 1,
+            "company": 3,
+            "field_type": "gas"
+        }
+    },
+    {
+        "model": "well.well",
+        "pk": 3,
+        "fields": {
+            "name": "SP-12A",
+            "alias": "South Pars 12 Alpha",
+            "field": 3,
+            "city": 3,
+            "current_status": "active",
+            "current_status_date": "2024-02-01",
+            "well_type": "development",
+            "lat": 27.4,
+            "lon": 52.6,
+            "remarks": "Key production well"
+        }
+    },
+    {
+        "model": "well.well",
+        "pk": 4,
+        "fields": {
+            "name": "SP-19B",
+            "alias": "South Pars 19 Bravo",
+            "field": 4,
+            "city": 4,
+            "current_status": "active",
+            "current_status_date": "2024-02-05",
+            "well_type": "production",
+            "lat": 27.6,
+            "lon": 52.8,
+            "remarks": "Production well for phase 19"
+        }
+    }
+]

@@ -1,0 +1,39 @@
+<div id=" d-flex flex-column h-100">
+    <div id="map" class="border border-1 border-danger" style="height: 100%; width: 100%;" hx-preserve></div>
+</div>
+
+<script>
+    // Initialize the map
+    var map = L.map('map').setView([27.0000, 52.0000], 10);  // South Pars region center
+
+    // Set up the OpenStreetMap layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+    }).addTo(map);
+
+    // Function to generate a random number within a range
+    function getRandomInRange(min, max) {
+        return Math.random() * (max - min) + min;
+    }
+
+    // Function to generate random color
+    function getRandomColor() {
+        const colors = ['#FF5733', '#33FF57']; // Example colors (red, green, blue)
+        return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    // Generate random well locations within South Pars region
+    for (let i = 0; i < 100; i++) {
+        let lat = getRandomInRange(26.5, 27.5);  // Approximate latitude range for South Pars
+        let lng = getRandomInRange(50.5, 52.5);  // Approximate longitude range for South Pars
+        let color = getRandomColor()
+        // Create a circle for each random location with a random color
+        L.circle([lat, lng], {
+            color: color,
+            fillColor: color,
+            fillOpacity: 0.6,
+            radius: 1000  // You can adjust the radius to change circle size
+        }).addTo(map)
+            .bindPopup('Well Location ' + (i + 1));
+    }
+</script>

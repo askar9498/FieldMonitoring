@@ -9,7 +9,6 @@ class Country(models.Model):
     class Meta:
         verbose_name = _("Country")
         verbose_name_plural = _("Countries")
-        db_table = 'Country'
 
     def __str__(self):
         return self.name
@@ -22,7 +21,6 @@ class Province(models.Model):
         verbose_name = _("Province")
         verbose_name_plural = _("Provinces")
         unique_together = ('name', 'country')  # Ensures province names are unique within a country
-        db_table = 'Province'
 
     def __str__(self):
         return f"{self.name}, {self.country.name}"
@@ -35,7 +33,10 @@ class City(models.Model):
         verbose_name = _("City")
         verbose_name_plural = _("Cities")
         unique_together = ('name', 'province')  # Ensures city names are unique within a province
-        db_table = 'City'
+        
+    class Meta:
+        verbose_name = _("City")
+        verbose_name_plural = _("Cities")
 
     def __str__(self):
         return f"{self.name}, {self.province.name}, {self.province.country.name}"
@@ -44,7 +45,9 @@ class Company(models.Model):
     name = models.CharField(max_length=255)
     parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.SET_NULL, related_name='subsidiaries')
 
-    def __str__(self):
+    class Meta:
         verbose_name = _("Company")
         verbose_name_plural = _("Companies")
+        
+    def __str__(self):
         return self.name

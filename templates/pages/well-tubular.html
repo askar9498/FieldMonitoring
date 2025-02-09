@@ -1,0 +1,41 @@
+<div id="tubulars-grid" class="" style="height: 600px; width: 100%;">
+</div>
+
+<script>
+    function loadTubularGrid() {
+        const gridOptions = {
+            columnDefs: [
+                { headerName: "Type", field: "type", sortable: true, filter: true, rowGroup: true },
+                { headerName: "TVD Start (m)", field: "tvd_start", sortable: true, filter: true },
+                { headerName: "TVD End (m)", field: "tvd_end", sortable: true, filter: true },
+                { headerName: "MD Start (m)", field: "md_start", sortable: true, filter: true },
+                { headerName: "MD End (m)", field: "md_end", sortable: true, filter: true },
+                { headerName: "Diameter (in)", field: "diameter", sortable: true, filter: true },
+                { headerName: "Grade", field: "grade", sortable: true, filter: true },
+                { headerName: "Weight (lb/ft)", field: "weight", sortable: true, filter: true },
+                { headerName: "Connection", field: "connection", sortable: true, filter: true }
+            ],
+            defaultColDef: {
+                resizable: true,
+                filter: "agTextColumnFilter",
+            },
+            autoGroupColumnDef: {
+                minWidth: 200,
+            },
+            rowGroupPanelShow: "always",
+            groupDefaultExpanded: 1,
+            rowData: [
+                { tvd_start: 0, tvd_end: 1000, md_start: 0, md_end: 1050, diameter: 20, grade: "J55", weight: 94.0, type: "Casing", connection: "BTC" },
+                { tvd_start: 1000, tvd_end: 2000, md_start: 1050, md_end: 2100, diameter: 13.375, grade: "K55", weight: 68.0, type: "Casing", connection: "STC" },
+                { tvd_start: 2000, tvd_end: 3000, md_start: 2100, md_end: 3200, diameter: 9.625, grade: "L80", weight: 47.0, type: "Casing", connection: "LTC" },
+                { tvd_start: 3000, tvd_end: 3500, md_start: 3200, md_end: 3600, diameter: 7.0, grade: "P110", weight: 32.0, type: "Tubing", connection: "Premium" },
+                { tvd_start: 3500, tvd_end: 3800, md_start: 3600, md_end: 3900, diameter: 5.5, grade: "Q125", weight: 17.0, type: "Tubing", connection: "VAM TOP" }
+            ]
+        };
+
+        var gridDiv = document.querySelector("#tubulars-grid");
+        agGrid.createGrid(gridDiv, gridOptions);
+    }
+    loadTubularGrid();
+
+</script>

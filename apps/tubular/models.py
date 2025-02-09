@@ -13,7 +13,6 @@ class TubularCatalogue(models.Model):
     collapse_pressure = models.FloatField()
     
     class Meta:
-        db_table = 'tubulartemp'
         verbose_name = _("Tubular Catalogue")
         verbose_name_plural = _("Tubular Catalogue")
 
@@ -39,7 +38,6 @@ class WellTube(models.Model):
     class Meta:
         verbose_name = "well_tubes"
         verbose_name_plural = "Well Tube"
-        db_table = "Well Tubes"
     
     def __str__(self):
         return f"{self.well.name} - {self.name} - OD: {self.tube_catalogue.outer_diameter}"
