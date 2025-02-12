@@ -1,6 +1,9 @@
+{% block dount_chart %}
 <div class="chart-container" id="gas-production-chart">
     <div id="donut-chart" style="height: 400px; width:400px;"></div>
 </div>
+{% endblock dount_chart %}
+{% block dount_chart_js %}
 
 <script>
     function renderDonutChart() {
@@ -64,3 +67,4 @@
         }
     });
 </script>
+{% endblock dount_chart_js %}

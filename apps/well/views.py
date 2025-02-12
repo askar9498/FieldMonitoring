@@ -7,30 +7,26 @@ def index(request):
 
 def dashboard(request):
     fields = Field.objects.all()
-    companies = set(fields.values_list('company__name', flat=True))  # دریافت نام شرکت‌ها
+    companies = set(fields.values_list('company__name', flat=True)) 
     production_data = []
 
     for company in companies:
-        oil_production = 0
-        gas_production = 0
+        production = 0
         
         for field in fields.filter(company__name=company):
-            random_production = random.randint(50, 500)  # مقدار تصادفی تولید
+            random_production = random.randint(50, 500) 
             if field.field_type == Field.FieldType.OIL:
-                oil_production += random_production
-            else:
-                gas_production += random_production
-        
+                production += random_production
+           
         production_data.append({
             'company': company,
-            'oil': oil_production,
-            'gas': gas_production
+            'production': production,
         })
     field_data = []
     for field in fields:
         if field.field_type == Field.FieldType.OIL:
             well_count = Well.objects.filter(field=field).count()
-            random_production = random.randint(1, 100)  # اعداد تصادفی بین 1 تا 100
+            random_production = random.randint(1, 100) 
             random_change = random.randint(-5, 8)
             
             production = random_production
@@ -51,12 +47,28 @@ def dashboard(request):
 
 def production(request, oil_or_gas):
     fields = Field.objects.all()
+    companies = set(fields.values_list('company__name', flat=True)) 
+    production_data = []
+    oilOrGas = Field.FieldType.OIL if oil_or_gas == 'oil' else Field.FieldType.GAS
+    for company in companies:
+        production = 0
+        
+        for field in fields.filter(company__name=company):
+            random_production = random.randint(50, 500) 
+            if field.field_type == oilOrGas:
+                production += random_production
+            
+        
+        production_data.append({
+            'company': company,
+            'production': production,
+        })
     field_data = []
     oilorgas = Field.FieldType.OIL if oil_or_gas == 'oil' else Field.FieldType.GAS
     for field in fields:
         if field.field_type == oilorgas:
             well_count = Well.objects.filter(field=field).count()
-            random_production = random.randint(1, 100)  # اعداد تصادفی بین 1 تا 100
+            random_production = random.randint(1, 100)
             random_change = random.randint(-5, 8)
             
             production = random_production
@@ -70,6 +82,7 @@ def production(request, oil_or_gas):
     
     context = {
         'field_data': field_data,
+        'production_data': production_data
     }
     return render(request,'pages/dashboard/daily_production.html', context)
 

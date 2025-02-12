@@ -1,6 +1,7 @@
 <div class="d-flex flex-column h-100 justify-content-center py-2 px-3">
     <div class="d-flex flex-row gap-2 align-items-center mb-3">
-        <div class="col-6 flex-fill border rounded-2 shadow shadow-sm d-flex flex-column justify-content-center align-items-center p-5">
+        <div
+            class="col-6 flex-fill border rounded-2 shadow shadow-sm d-flex flex-column justify-content-center align-items-center p-5">
             <div class="row w-100">
                 <div class="col-sm-6">
                     <div class="card">
@@ -91,7 +92,8 @@
                 </div>
             </div>
         </div>
-        <div class="p-5 col-6 flex-fill border rounded-2 shadow shadow-sm d-flex flex-column justify-content-center align-items-center " style="height: 415px !important;">
+        <div class="p-5 col-6 flex-fill border rounded-2 shadow shadow-sm d-flex flex-column justify-content-center align-items-center "
+            style="height: 415px !important;">
             <div class="flex-fill w-100">
                 <div class="card-header">
                     <h5 class="card-title mb-0">Recent Movement</h5>
@@ -102,105 +104,90 @@
         </div>
 
     </div>
+    <div  class="d-flex flex-row gap-4 align-items-center mt-2 mb-3">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane"
+                    hx-get="{% url 'daily_production' 'oil' %}" hx-swap="innerHTML" hx-target="#production_container"
+                    hx-trigger="click" type="button" role="tab" aria-controls="home-tab-pane" _="on htmx:afterSwap call renderDonutChart()"
+                    aria-selected="true">Oil
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
 
-    <div class="d-flex flex-row gap-4 align-items-center mt-2 mb-3">
-        <div class="flex-fill border rounded-2 shadow shadow-sm d-flex flex-column p-2" style="height: 400px;;">
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane"
-                            hx-get="{% url 'daily_production' 'oil' %}" hx-swap="innerHTML" hx-target="#home-tab-pane" hx-trigger="click"
-                            type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Oil
-                    </button>
-                </li>
-                <li class="nav-item" role="presentation">
+                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane"
+                    hx-get="{% url 'daily_production' 'gas' %}" hx-swap="innerHTML" hx-target="#production_container"
+                    hx-trigger="click" type="button" role="tab" aria-controls="profile-tab-pane" _="on htmx:afterSwap call renderDonutChart()"
+                    aria-selected="false">Gas
+                </button>
+            </li>
 
-                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane"
-                            hx-get="{% url 'daily_production' 'gas' %}" hx-swap="innerHTML" hx-target="#profile-tab-pane" hx-trigger="click"
-                            type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Gas
-                    </button>
-                </li>
-
-            </ul>
-            <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
-                    
-                     tabindex="0">
-                    {% include 'pages/dashboard/daily_production.html'%}
-                    </div>
-
-                    <div class="d-flex justify-content-center align-items-center">
-                        <div class="btn btn-sm btn-secondary">Show more...</div>
-                    </div>
-
-
-                </div>
-                <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab"
-                     tabindex="0">...
-                </div>
-
-            </div>
-        </div>
-        <div class="flex-fill border rounded-2 shadow shadow-sm d-flex flex-column justify-content-center align-items-center "
-             style="height: 400px;;">
-             {% include "pages/dashboard/donut-chart.html" %}
-        </div>
+        </ul>
     </div>
+    <div id="production_container" class="d-flex flex-row gap-4 align-items-center mt-2 mb-3">
+        
+        
+        {% include 'pages/dashboard/daily_production.html'%}
+               
+    </div>
+</div>
 
 </div>
 
 
 <script>
-setTimeout(function() {
-    var chartElement = document.querySelector("#chartjs-dashboard-line");
+  
+    setTimeout(function () {
+        var chartElement = document.querySelector("#chartjs-dashboard-line");
 
-    if (!chartElement) {
-        console.error("❌ عنصر #chartjs-dashboard-line در DOM یافت نشد!");
-        return;
-    }
-
-    var options = {
-        series: [{
-            name: 'OIL',
-            data: [31, 40, 28, 51, 42, 109, 100]
-        }, {
-            name: 'GAS',
-            data: [11, 32, 45, 32, 34, 52, 41]
-        }],
-        chart: {
-            height: 350,
-            type: 'area'
-        },
-        colors: ['#FF5733', '#33FF57'],
-        dataLabels: { enabled: false },
-        stroke: { curve: 'smooth' },
-        fill: {
-            type: "gradient",
-            gradient: {
-                shadeIntensity: 1,
-                opacityFrom: 0.6,
-                opacityTo: 0.1,
-                stops: [0, 100]
-            }
-        },
-        xaxis: {
-            type: 'datetime',
-            categories: [
-                "2018-09-19T00:00:00.000Z",
-                "2018-09-19T01:30:00.000Z",
-                "2018-09-19T02:30:00.000Z",
-                "2018-09-19T03:30:00.000Z",
-                "2018-09-19T04:30:00.000Z",
-                "2018-09-19T05:30:00.000Z",
-                "2018-09-19T06:30:00.000Z"
-            ]
-        },
-        tooltip: {
-            x: { format: 'dd/MM/yy HH:mm' }
+        if (!chartElement) {
+            console.error("❌ عنصر #chartjs-dashboard-line در DOM یافت نشد!");
+            return;
         }
-    };
 
-    var chart = new ApexCharts(chartElement, options);
-    chart.render();
-}, 200);  // 200 میلی‌ثانیه تأخیر
+        var options = {
+            series: [{
+                name: 'OIL',
+                data: [31, 40, 28, 51, 42, 109, 100]
+            }, {
+                name: 'GAS',
+                data: [11, 32, 45, 32, 34, 52, 41]
+            }],
+            chart: {
+                height: 350,
+                type: 'area'
+            },
+            colors: ['#FF5733', '#33FF57'],
+            dataLabels: { enabled: false },
+            stroke: { curve: 'smooth' },
+            fill: {
+                type: "gradient",
+                gradient: {
+                    shadeIntensity: 1,
+                    opacityFrom: 0.6,
+                    opacityTo: 0.1,
+                    stops: [0, 100]
+                }
+            },
+            xaxis: {
+                type: 'datetime',
+                categories: [
+                    "2018-09-19T00:00:00.000Z",
+                    "2018-09-19T01:30:00.000Z",
+                    "2018-09-19T02:30:00.000Z",
+                    "2018-09-19T03:30:00.000Z",
+                    "2018-09-19T04:30:00.000Z",
+                    "2018-09-19T05:30:00.000Z",
+                    "2018-09-19T06:30:00.000Z"
+                ]
+            },
+            tooltip: {
+                x: { format: 'dd/MM/yy HH:mm' }
+            }
+        };
+
+        var chart = new ApexCharts(chartElement, options);
+        chart.render();
+    }, 200);  // 200 میلی‌ثانیه تأخیر
 
 </script>

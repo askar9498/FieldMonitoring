@@ -1,0 +1,120 @@
+<div class="flex-fill border rounded-2 shadow shadow-sm d-flex flex-column p-2" style="height: 400px;;">
+            
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
+            tabindex="0">
+<table class="table align-middle table-hover text-center">
+    <thead class="">
+    <tr class="text-primary">
+        <th scope="col" class="text-secondary fs-6 fw-normal">Field Name</th>
+        <th scope="col" class="text-secondary fs-6 fw-normal">Number of Wells</th>
+        <th scope="col" class="text-secondary fs-6 fw-normal">Today's Production</th>
+        <th scope="col" class="text-secondary fs-6 fw-normal">Change</th>
+        <th scope="col" class="text-secondary fs-6 fw-normal"></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for data in field_data %}
+        <tr>
+            <td>{{data.field_name}}</td>
+            <td>{{data.well_count}}</td>
+            <td>{{data.production}} bbl/day</td>
+            <td>
+                {% if data.change > 0 %}
+                <span class="px-2 text-success bg-success bg-opacity-10 border border-success border-opacity-10 rounded-2 fw-lighter">
+                    <i class="fa-solid fa-arrow-up fa-xs me-2"></i>{{data.change}}%
+                </span>
+                {% elif data.change < 0 %}
+                <span class="px-2 text-danger bg-danger bg-opacity-10 border border-danger border-opacity-10 rounded-2 fw-lighter">
+                    <i class="fa-solid fa-arrow-down fa-xs me-2"></i>{{data.change}}%
+                </span>
+                {% else %}
+                <span class="px-2 text-dark bg-dark bg-opacity-10 border border-dark border-opacity-10 rounded-2 fw-lighter">
+                    {{data.change}}%
+                </span>
+                {% endif %}
+            </td>
+            <td>
+                <button class="btn btn-secondary btn-sm">
+                    <i class="fa-solid fa-arrow-right px-2 text-white"></i>
+                </button>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+</div>
+<div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+    ...
+</div>
+
+</div>
+<div class="flex-fill border rounded-2 shadow shadow-sm d-flex flex-column justify-content-center align-items-center "
+style="height: 400px;;">
+<div class="chart-container" id="gas-production-chart">
+    <div id="donut-chart" style="height: 400px; width:400px;"></div>
+</div>
+</div>
+<script>
+    function renderDonutChart() {
+        var chartDom = document.getElementById('donut-chart');
+        var myChart = echarts.init(chartDom);
+        
+        var productionData = {{ production_data|safe }};
+        var chartData = productionData.map(item => ({ name: item.company, value: item.production }));
+        console.log(chartData)
+        var option = {
+            tooltip: {
+                trigger: 'item',
+                formatter: function (params) {
+                    return `${params.name}: ${params.value} (${params.percent}%)`;
+                }
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+                data: chartData.map(item => item.name)
+            },
+            series: [
+                {
+                    name: 'Gas Production',
+                    type: 'pie',
+                    radius: ['40%', '70%'],
+                    avoidLabelOverlap: false,
+                    itemStyle: {
+                        borderRadius: 10,
+                        borderColor: '#fff',
+                        borderWidth: 2
+                    },
+                    label: {
+                        show: true,
+                        position: 'center',
+                        fontSize: '16',
+                        fontWeight: '600'
+                    },
+                    emphasis: {
+                        label: {
+                            show: true,
+                            fontSize: '20',
+                            fontWeight: 'bold'
+                        }
+                    },
+                    data: chartData
+                }
+            ]
+        };
+        
+        myChart.setOption(option);
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        renderDonutChart();
+    });
+
+    document.addEventListener('htmx:afterSwap', function (event) {
+        if (event.target.id === 'profile-tab-pane' || event.target.querySelector('#gas-production-chart')) {
+            renderDonutChart();
+        }
+    });
+</script>
