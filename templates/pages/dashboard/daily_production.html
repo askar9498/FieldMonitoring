@@ -63,7 +63,6 @@ style="height: 400px;;">
         
         var productionData = {{ production_data|safe }};
         var chartData = productionData.map(item => ({ name: item.company, value: item.production }));
-        console.log(chartData)
         var option = {
             tooltip: {
                 trigger: 'item',

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import *
 import random
 # Create your views here.
@@ -86,9 +86,37 @@ def production(request, oil_or_gas):
     }
     return render(request,'pages/dashboard/daily_production.html', context)
 
-def well_detail(request):
-    return render(request,'pages/well-detail-template.html')
+def well_detail(request, well_id):
+    # Get the well object or return 404 if not found
+    well = get_object_or_404(Well, id=well_id)
+
+    # Prepare the data to pass to the template
+    context = {
+        "well": well,
+        "field": well.field,
+        "company": well.field.company,
+        "country": well.field.country,
+        "city": well.city,
+    }
+    return render(request, 'pages/well-detail-template.html', context)
 
 def field_list(request):
-    return render(request,'pages/field-list.html')
+    fields = Field.objects.all()
+
+    field_data = [
+        {
+            "id": field.id,
+            "name": field.name,
+            "company": field.company,
+            "field_type": field.field_type,
+            "area": field.area or 0, 
+            "well_count": Well.objects.filter(field=field).count(),
+        }
+        for field in fields
+    ]
+
+    context = {
+        'field_list': field_data
+    }
+    return render(request, 'pages/field-list.html', context)
 
