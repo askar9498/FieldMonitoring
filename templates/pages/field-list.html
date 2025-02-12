@@ -1,10 +1,8 @@
 <div class="container-fluid mt-2 d-flex flex-column h-100 justify-content-center">
     <div class="text-primary fs-5">Field List</div>
-    <small class="mb-2">Total: 200 Fields</small>
+    <small class="mb-2">Total: {{ field_list|length }} Fields</small>
     <div id="fieldGrid" class="flex-grow-1 h-100"></div>
 </div>
-
-
 
 <script>
     var columnDefs = [
@@ -21,28 +19,28 @@
         }
     ];
 
-    var rowData = [];
-    for (let i = 1; i <= 200; i++) {
-        rowData.push({
-            id: i,
-            company: ["POGC", "IOOC", "NISOC", "PEDEC"][Math.floor(Math.random() * 4)],
-            fieldName: `Field ${i}`,
-            fieldType: ["Gas", "Oil", "Gas", "Oil", "Gas"][Math.floor(Math.random() * 5)],
-            wells: Math.floor(Math.random() * 50) + 1,
-            fieldSize: Math.floor(Math.random() * 1000) + 100
-        });
-    }
+    var rowData = [
+        {% for field in field_list %}
+        {
+            id: {{ field.id }},
+            company: "{{ field.company.name }}",
+            fieldName: "{{ field.name }}",
+            fieldType: "{{ field.field_type }}",
+            wells: {{ field.well_count|default:0 }},  
+            fieldSize: {{ field.area|default:0 }}
+        },
+        {% endfor %}
+    ];
 
     var gridOptions = {
         columnDefs: columnDefs,
         rowData: rowData,
-        paginationPageSize: 10,  // Number of rows per page
-        pagination: true,        // Enable pagination
-        domLayout: 'autoHeight'  // Adjust grid height automatically
+        paginationPageSize: 10, 
+        pagination: true,        
+        domLayout: 'autoHeight' 
     };
 
     agGrid.createGrid(document.getElementById('fieldGrid'), gridOptions);
-
 
     function showDetails(id) {
         alert("Show details for field with ID: " + id);
