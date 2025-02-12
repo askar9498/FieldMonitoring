@@ -3,11 +3,13 @@
 </div>
 
 <script>
-    // Function to render the donut chart
     function renderDonutChart() {
         var chartDom = document.getElementById('donut-chart');
         var myChart = echarts.init(chartDom);
-
+        
+        var productionData = {{ production_data|safe }};
+        var chartData = productionData.map(item => ({ name: item.company, value: item.gas }));
+        
         var option = {
             tooltip: {
                 trigger: 'item',
@@ -16,15 +18,15 @@
                 }
             },
             legend: {
-                orient: 'vertical',  // Vertical layout for legend
-                left: 'left',        // Position it on the left side
-                data: ['POGC', 'PEDEC', 'NISOC', 'IOOC']  // Names of the sectors
+                orient: 'vertical',
+                left: 'left',
+                data: chartData.map(item => item.name)
             },
             series: [
                 {
                     name: 'Gas Production',
                     type: 'pie',
-                    radius: ['40%', '70%'],  // Donut chart
+                    radius: ['40%', '70%'],
                     avoidLabelOverlap: false,
                     itemStyle: {
                         borderRadius: 10,
@@ -44,29 +46,21 @@
                             fontWeight: 'bold'
                         }
                     },
-                    data: [
-                        { value: 70, name: 'POGC' },
-                        { value: 15, name: 'PEDEC' },
-                        { value: 3, name: 'NISOC' },
-                        { value: 5, name: 'IOOC' },
-                        { value: 7, name: 'PEDEC' }
-                    ]
+                    data: chartData
                 }
             ]
         };
-
+        
         myChart.setOption(option);
     }
 
-    // Initial rendering of the chart
     document.addEventListener('DOMContentLoaded', function () {
         renderDonutChart();
     });
 
-    // Re-render the chart after HTMX swaps the content
     document.addEventListener('htmx:afterSwap', function (event) {
         if (event.target.id === 'gas-production-chart' || event.target.querySelector('#gas-production-chart')) {
-            renderDonutChart();  // Re-render the donut chart after the content is swapped
+            renderDonutChart();
         }
     });
 </script>
