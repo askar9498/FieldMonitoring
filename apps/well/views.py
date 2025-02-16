@@ -5,6 +5,9 @@ import random
 def index(request):
     return render(request,'index.html')
 
+def well_list_template(request):
+    return render(request,'pages/well-detail-template.html')
+
 def dashboard(request):
     fields = Field.objects.all()
     companies = set(fields.values_list('company__name', flat=True)) 
@@ -86,6 +89,26 @@ def production(request, oil_or_gas):
     }
     return render(request,'pages/dashboard/daily_production.html', context)
 
+def well_list(request):
+    wells = Well.objects.all()
+    wells_data = []
+    for well in wells:  
+        wells_data.append({
+            "well": well,
+            "name":well.name,
+            "field": well.field,
+            "company": well.field.company,
+            "country": well.field.country,
+            "city": well.city,
+            })
+    
+    context = {
+        'wells_data': wells_data,
+    }
+    
+    return render(request,'pages/well_list.html', context)
+    
+
 def well_detail(request, well_id):
     # Get the well object or return 404 if not found
     well = get_object_or_404(Well, id=well_id)
@@ -98,7 +121,7 @@ def well_detail(request, well_id):
         "country": well.field.country,
         "city": well.city,
     }
-    return render(request, 'pages/well-detail-template.html', context)
+    return render(request, 'pages/well-info.html', context)
 
 def field_list(request):
     fields = Field.objects.all()

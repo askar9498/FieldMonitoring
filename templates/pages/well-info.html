@@ -3,10 +3,21 @@
         <!-- Well Overview Card -->
         <div class="col-md-6 mb-4">
             <div class="card shadow-lg border-1">
+                
                 <div class="card-header bg-gradient-primary text-black">
                     <h5 class="mb-0">Well Overview</h5>
                 </div>
                 <div class="card-body">
+                    <div class="row">
+                        <button class="btn btn-secondary btn-sm"
+
+                        hx-get="{% url 'well_list'  %}" hx-swap="innerHTML" hx-target="#tab-content"
+                        hx-trigger="click"
+                        
+                        >
+                            back
+                        </button>
+                    </div>
                     <div class="row mb-3">
                         <div class="col-md-6"><strong>Well Name:</strong> <span class="text-primary">{{ well.name }}</span></div>
                         <div class="col-md-6"><strong>Field:</strong> {{ field.name }}</div>
